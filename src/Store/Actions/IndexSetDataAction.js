@@ -1,0 +1,9 @@
+export const ADD_FOLDER_DATA_IN_STORE = 'index/add-folder-data-store';
+
+export default function addFolderInStore(data){
+    console.log(data, 'dataaaaaaaaaaaaaaaaaaaaa')
+    return {
+       type: ADD_FOLDER_DATA_IN_STORE,
+       data,
+    }
+}
