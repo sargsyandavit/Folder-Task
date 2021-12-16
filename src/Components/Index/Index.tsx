@@ -35,15 +35,20 @@ type structureType = {
   content: contentType[] | null,
 }
 
-const Index = () => {
+const Index = (): JSX.Element => {
+  // redux
   const [curentDirectory, setCurrentDirectory] = useState<structureType[]>([...root]);
 
+  // redux
   const [path, setPath] = useState<string>('root/');
-
+ 
+  // redux
   const [newFolderName, setNewFolderName] = useState<string>('');
-
+ 
+  // redux
   const [activeType, setActiveType] = useState<string>('folder'); // one of folder or file.
 
+  // redux
   const [selectedFolderOrFile, setSelectedFolderOrFile] = useState<string>('');
 
   const handleAddFolder = () => {
@@ -71,19 +76,14 @@ const Index = () => {
     const name: string = selectedFolderOrFile.split('&')[1]
     const directores: structureType[] = [...curentDirectory]
     const pathArray = path.split('/').filter(i => i);
-    let content: structureType[] | any = null;
+    let content: structureType[] = directores;
 
-    pathArray.forEach((key, index) => {
-      if (index === pathArray.length - 1) {
-        content = ((content && content.length ? content : directores).find((i: structureType) => i.name === key)) || content
-      } else {
-        if(content?.[index]?.name === key)  content = content[index].content;
-        if(directores?.[index]?.name === key)  content = directores[index].content;
-      }
+    pathArray.forEach(key => {
+      content = content.find((i: structureType) => i.name === key)?.content || content;
     });
 
-     content.content.forEach((item: structureType, index: number) => {
-      if (item.name === name) delete content.content[index];
+     content.forEach((item: structureType, index: number) => {
+      if (item.name === name) delete content[index];
      });
      setSelectedFolderOrFile('');
   }
@@ -117,7 +117,6 @@ const Index = () => {
         /> : <FolderImg 
         active={`${path}&${item.name}` === selectedFolderOrFile} 
         onClick={(e: any) => handleSelect(`${path}&${item.name}`, e)} 
-        onDoubleClick={() =>  setPath(prev => path.includes(prev + item.name + '/') ? prev : prev + item.name + '/')} 
          src={Fileimg} 
         />}
          <div> {item.name}</div>
