@@ -10,6 +10,7 @@ import { AddButton,
   FolderNav,
   FoldersBlock,
   Inpute,
+  Name,
   NavSetings,
   RemovButton,
   SetingSection 
@@ -99,7 +100,7 @@ const Index = (): JSX.Element => {
     let content: any = directores;
 
     pathArray.forEach(key => {
-      content = content.find((i: structureType) => i.name === key)?.content || content;
+      content = content.find((i: structureType) => i?.name === key)?.content || content;
     })
 
     return (
@@ -119,7 +120,7 @@ const Index = (): JSX.Element => {
         onClick={(e: any) => handleSelect(`${path}&${item.name}`, e)} 
          src={Fileimg} 
         />}
-         <div> {item.name}</div>
+         <Name> {item.name}</Name>
         </FoldersBlock>
       ): <Empty>Empty</Empty>}
       </FolderNav>
@@ -127,8 +128,9 @@ const Index = (): JSX.Element => {
   };
 
   const handleBack = () => {
+    setSelectedFolderOrFile('');
     if(path.split('/').filter(i => i).length > 2) setPath(prev => prev.split('/').slice(0, -1).filter(i =>i).join('/'))
-    else if (path.split('/').filter(i => i).length === 2) setPath(prev => prev.split('/')[0] + '/') 
+    else if (path.split('/').filter(i => i).length === 2) setPath(prev => prev.split('/')[0] + '/');
   };
   
   return (

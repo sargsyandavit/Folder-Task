@@ -138,6 +138,13 @@ export const FileImg = styled.img`
   `}
 `;
 
+export const Name = styled.p`
+  text-overflow: ellipsis;
+  max-width: 90px;
+  white-space: nowrap;
+  overflow: hidden;
+`;
+
 export const FolderImg = styled.img`
   width: 40px;
   height: 35px;
